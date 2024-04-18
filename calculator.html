@@ -1,0 +1,123 @@
+<!DOCTYPE>
+
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.js"></script>
+
+    <style>
+        table {
+            margin: auto auto auto;
+            justify-content: center;
+            margin-top: 250px;
+           
+
+        }
+
+        input[type="button"] {
+            width: 100%;
+            padding: 20px 40px;
+            background-color: rgb(217, 16, 87);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            border: 2px solid black;
+            width: 100%;
+            background-color: bisque;
+        }
+
+        #clear,#backspace {
+            background-color: rgb(26, 4, 94);
+        }
+
+        input[value="/"],
+        input[value="*"],
+        input[value="+"],
+        input[value="-"] {
+            background-color: rgb(43, 1, 65);
+        }
+    </style>
+</head>
+
+<body>
+    <table id="calculator">
+        <tr>
+            <td colspan="2"><input type="text" id="results"></td>
+            <td><input type="button" id="clear" onclick="clears()" value="C"></td>
+            <td><input type="button" id="backspace" onclick="backspace()" value="Del"></td>
+        </tr>
+        <tr>
+            <td><input type="button" id="1" onclick="num('1')" onkeydown="myfunction(event)" value="1"></td>
+            <td><input type="button" id="2" onclick="num('2')" onkeydown="myfunction(event)" value="2"></td>
+            <td><input type="button" id="3" onclick="num('3')" onkeydown="myfunction(event)" value="3"></td>
+            <td><input type="button" id="/" onclick="num('/')" onkeydown="myfunction(event)" value="/"></td>
+        </tr>
+        <tr>
+            <td><input type="button" id="4" onclick="num('4')" onkeydown="myfunction(event)" value="4"></td>
+            <td><input type="button" id="5" onclick="num('5')" onkeydown="myfunction(event)" value="5"></td>
+            <td><input type="button" id="6" onclick="num('6')" onkeydown="myfunction(event)" value="6"></td>
+            <td><input type="button" id="*" onclick="num('*')" onkeydown="myfunction(event)" value="*"></td>
+        </tr>
+        <tr>
+            <td><input type="button" id="7" onclick="num('7')" onkeydown="myfunction(event)" value="7"></td>
+            <td><input type="button" id="8" onclick="num('8')" onkeydown="myfunction(event)" value="8"></td>
+            <td><input type="button" id="9" onclick="num('9')" onkeydown="myfunction(event)" value="9"></td>
+            <td><input type="button" id="+" onclick="num('+')" onkeydown="myfunction(event)" value="+"></td>
+        </tr>
+        <tr>
+            <td><input type="button" id="0" onclick="num('0')" onkeydown="myfunction(event)" value="0"></td>
+            <td><input type="button" id="." onclick="num('.')" onkeydown="myfunction(event)" value="."></td>
+            <td><input type="button" id="=" onclick="solve()"  onkeyup="solve()" value="=" ></td>
+            <td><input type="button" id="-" onclick="num('-')" onkeydown="myfunction(event)" value="-"></td>
+        </tr>
+    </table>
+    <script>
+        function num(val) {
+            document.getElementById("results").value += val;
+        }
+        function myfunction(event) {
+            if (event.key == '0' || event.key == '1' ||
+                event.key == '2' || event.key == '3' ||
+                event.key == '4' || event.key == '5' ||
+                event.key == '6' || event.key == '7' ||
+                event.key == '8' || event.key == '9' ||
+                event.key == '+' || event.key == '*' ||
+                event.key == '-' || event.key == '/' 
+            )
+                document.getElementById("results").value += event.key;
+        
+        }
+        var cal = document.getElementById("calculator");
+        cal.onkeyup = function (event) {
+            if (event.keyCode === 13) {
+                console.log("Enter");
+                solve();
+            }
+        }
+
+        function solve() {
+            let x = document.getElementById("results").value;
+            let y = math.evaluate(x);
+            document.getElementById("results").value = y;
+        }
+        function clears() {
+            document.getElementById("results").value = "";
+        }
+        function backspace(){
+            var outputs=document.getElementById("results").value;
+            document.getElementById("results").value=outputs.slice(0,-1);
+        }
+    </script>
+</body>
+
+</html>
